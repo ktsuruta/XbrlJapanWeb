@@ -1,0 +1,61 @@
+{% macro create_table_for_element(document, element, sort_dict_value, sort_dict_key, format_element_name) %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td></td>
+                {% for key in sort_dict_key(document[element]) %}
+                    <th>
+                    {% if key.find("NonConsolidatedMember") %}
+                        {{ key.split('_')[0] }} <br> {{ key.split('_')[1] }}
+                    {% else %}
+                        {{ key }}
+                    {% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="row_index">
+                    {{ format_element_name(element) }}
+                </td>
+                {% for value in sort_dict_value(document[element]) %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+{% endmacro %}
+
+
+{% macro create_table_for_index_page(title, result,count, get_element, db_annual, db_sector) %}
+        <h2>{{ title }} ({{count}})</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Conpany Name</th>
+              <th>Report Date</th>
+              <th>Sector</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for document in result %}
+                <tr>
+                    <td>
+                        <a href='./corporation/{{document["code"]}}'>
+                        {{get_element(document,"jpcrp_cor:CompanyNameInEnglishCoverPage","FilingDateInstant")}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href='./corporation/{{document["code"]}}/quarter_report?file_name={{get_element(document, "file_name")}}'>
+                        {{get_element(document,"report_date")}}
+                        </a>
+                    </td>
+                    <td>
+                        {{ db_annual.get_sector(document["code"],db_sector) }}
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+{% endmacro %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+    <h1>
+        {{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }}
+    </h1>
+    <div class="alert alert-info" role="alert">
+        This page is based on {{file_name}}
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Type Of Current Period DEI</td>
+                <td>{{ result['jpdei_cor:TypeOfCurrentPeriodDEI']['FilingDateInstant'] }}</td>
+            </tr>
+            <tr>
+                <td>Company Name In English Cover Page</td>
+                <td>{{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }}</td>
+            </tr>
+            <tr>
+                <td>Current Fiscal Year End Date DEI</td>
+                <td>{{ result['jpdei_cor:CurrentFiscalYearEndDateDEI']['FilingDateInstant'] }}</td>
+            </tr>
+
+            <tr>
+                <td>Company Name Cover Page</td>
+                <td>{{ result['jpcrp_cor:CompanyNameCoverPage']['FilingDateInstant'] }}</td>
+            </tr>
+
+            <tr>
+                <td>Security Code DEI(link to Yahoo)</td>
+                <td><a href="https://stocks.finance.yahoo.co.jp/stocks/chart/?code={{ change_security_code_to_yahoo_code(result['jpdei_cor:SecurityCodeDEI']['FilingDateInstant']) }}" target="_blank">{{ change_security_code_to_yahoo_code(result['jpdei_cor:SecurityCodeDEI']['FilingDateInstant']) }}</a></td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td>
+                    From {{ get_element(result, 'jpdei_cor:CurrentFiscalYearStartDateDEI','FilingDateInstant') }} <br />
+                    To {{ get_element(result, 'jpdei_cor:CurrentPeriodEndDateDEI','FilingDateInstant') }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+     {{ macros.create_table_for_element(result, 'jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults', sort_dict_value, sort_dict_key, format_element_name) }}
+
+
+{% endblock %}

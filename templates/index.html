@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+      <div class="table-responsive">
+
+        {{ macros.create_table_for_index_page("Annual Report", result_annual,count_annual, get_element, db_annual, db_sector) }}
+        {{ macros.create_table_for_index_page("Quarter Report", result_quarter_2,count_quarter_2, get_element, db_annual, db_sector) }}
+        {{ macros.create_table_for_index_page("Half Year Report", result_half_year,count_half_year, get_element, db_annual, db_sector) }}
+
+      </div>
+{% endblock %}

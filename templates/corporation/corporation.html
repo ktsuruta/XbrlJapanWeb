@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <h1>
+        {{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }}
+    </h1>
+
+    <table  class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Report Type
+                </th>
+                <th>
+                    Report Date
+                </th>
+                <th>
+                    Duration
+                </th>
+                <th>
+                    File Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for document in docs_annual_report %}
+            <tr>
+                <td>{{ document['jpdei_cor:TypeOfCurrentPeriodDEI']['FilingDateInstant']  }}</td>
+                <td><a href="/corporation/{{ code }}/annual_report?file_name={{ document['file_name'] }}">{{ document['report_date'] }}</a></td>
+                <td>
+                    From {{ get_element(document, 'jpdei_cor:CurrentFiscalYearStartDateDEI','FilingDateInstant') }}
+                    To {{ get_element(document, 'jpdei_cor:CurrentPeriodEndDateDEI','FilingDateInstant') }}
+                </td>
+                <td>
+                    {{ document['file_name'] }}
+
+                </td>
+            </tr>
+        {% endfor %}
+        {% for document in docs_annual_report_2 %}
+            <tr>
+                <td>{{ document['jpdei_cor:TypeOfCurrentPeriodDEI']['FilingDateInstant'] }}</td>
+                <td><a href="/corporation/{{ code }}/annual_report?file_name={{ document['file_name'] }}">{{ document['report_date'] }}</a></td>
+                 <td>
+                    From {{ get_element(document, 'jpdei_cor:CurrentFiscalYearStartDateDEI','FilingDateInstant') }}
+                    To {{ get_element(document, 'jpdei_cor:CurrentPeriodEndDateDEI','FilingDateInstant') }}
+                </td>
+                <td>
+                    {{ document['file_name'] }}
+                </td>
+            </tr>
+        {% endfor %}
+        {% for document in docs_quarter_report %}
+            <tr>
+                <td>{{ document['jpdei_cor:TypeOfCurrentPeriodDEI']['FilingDateInstant']  }}</td>
+                <td><a href="/corporation/{{ code }}/quarter_report?file_name={{ document['file_name'] }}">{{ document['report_date'] }}</a></td>
+                <td>
+                    From {{ get_element(document, 'jpdei_cor:CurrentFiscalYearStartDateDEI','FilingDateInstant') }}
+                    To {{ get_element(document, 'jpdei_cor:CurrentPeriodEndDateDEI','FilingDateInstant') }}
+                </td>
+                <td>
+                    {{ document['file_name'] }}
+                </td>
+            </tr>
+        {% endfor %}
+        {% for document in docs_quarter_report_2 %}
+            <tr>
+                <td>{{ document['jpdei_cor:TypeOfCurrentPeriodDEI']['FilingDateInstant']  }}</td>
+                <td><a href="/corporation/{{ code }}/quarter_report_2?file_name={{ document['file_name'] }}">{{ document['report_date'] }}</a></td>
+                <td>
+                    From {{ get_element(document, 'jpdei_cor:CurrentFiscalYearStartDateDEI','FilingDateInstant') }}
+                    To {{ get_element(document, 'jpdei_cor:CurrentPeriodEndDateDEI','FilingDateInstant') }}
+                </td>
+                <td>
+                    {{ document['file_name'] }}
+                </td>
+            </tr>
+        {% endfor %}
+        {% for document in docs_half_year_report %}
+            <tr>
+                <td>{{ document['jpdei_cor:TypeOfCurrentPeriodDEI']['FilingDateInstant']  }}</td>
+                <td><a href="/corporation/{{ code }}/half_year_report?file_name={{ document['file_name'] }}">{{ document['report_date'] }}</a></td>
+                <td>
+                    From {{ get_element(document, 'jpdei_cor:CurrentFiscalYearStartDateDEI','FilingDateInstant') }}
+                    To {{ get_element(document, 'jpdei_cor:CurrentPeriodEndDateDEI','FilingDateInstant') }}
+                </td>
+                <td>
+                    {{ document['file_name'] }}
+                </td>
+            </tr>
+        {% endfor %}
+        {% for document in docs_half_year_report_2 %}
+            <tr>
+                <td>{{ document['jpdei_cor:TypeOfCurrentPeriodDEI']['FilingDateInstant']  }}</td>
+                <td><a href="/corporation/{{ code }}/half_year_report?file_name={{ document['file_name'] }}">{{ document['report_date'] }}</a></td>
+                <td>
+                    From {{ get_element(document, 'jpdei_cor:CurrentFiscalYearStartDateDEI','FilingDateInstant') }}
+                    To {{ get_element(document, 'jpdei_cor:CurrentPeriodEndDateDEI','FilingDateInstant') }}
+                </td>
+                <td>
+                    {{ document['file_name'] }}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Type Of Current Period DEI</td>
+                <td>{{ result['jpdei_cor:TypeOfCurrentPeriodDEI']['FilingDateInstant'] }}</td>
+            </tr>
+            <tr>
+                <td>Company Name In English Cover Page</td>
+                <td>{{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }}</td>
+            </tr>
+            <tr>
+                <td>Current Fiscal Year End Date DEI</td>
+                <td>{{ result['jpdei_cor:CurrentFiscalYearEndDateDEI']['FilingDateInstant'] }}</td>
+            </tr>
+
+            <tr>
+                <td>Company Name Cover Page</td>
+                <td>{{ result['jpcrp_cor:CompanyNameCoverPage']['FilingDateInstant'] }}</td>
+            </tr>
+
+            <tr>
+                <td>Security Code DEI(link to Yahoo)</td>
+                <td><a href="https://stocks.finance.yahoo.co.jp/stocks/chart/?code={{ change_security_code_to_yahoo_code(result['jpdei_cor:SecurityCodeDEI']['FilingDateInstant']) }}" target="_blank">{{ change_security_code_to_yahoo_code(result['jpdei_cor:SecurityCodeDEI']['FilingDateInstant']) }}</a></td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td>
+                    From {{ get_element(result, 'jpdei_cor:CurrentFiscalYearStartDateDEI','FilingDateInstant') }} <br />
+                    To {{ get_element(result, 'jpdei_cor:CurrentPeriodEndDateDEI','FilingDateInstant') }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Report Type
+                </td>
+                <td>
+                    {{ get_element(result, 'jpdei_cor:AccountingStandardsDEI','FilingDateInstant') }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sector
+                </td>
+                <td>
+                    {{ sector }}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Indicater</th>
+                <th>Current Year</th>
+                <th>Prior 1 Year</th>
+                <th>Prior 2 Year</th>
+                <th>Prior 3 Year</th>
+                <th>Prior 4 Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Rate Of Return On Equity Summary Of BusinessResults
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+
+            <tr>
+                <td>
+                    Net Cash Provided By Used In Operating Activities Summary Of Business Results
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    Net Income Loss Summary Of Business Results
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:NetIncomeLossSummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    Number Of Employees
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:NumberOfEmployees']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    Cash And Cash Equivalents Summary Of Business Results
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    Total Assets Summary Of Business Results
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:TotalAssetsSummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    Capital Stock Summary Of Business Results
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:CapitalStockSummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    Diluted Earnings Per Share Summary Of Business Results
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:DilutedEarningsPerShareSummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    Basic Earnings Loss Per Share Summary Of Business Results
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    Net Assets Summary Of Business Results
+                </td>
+            {% for value in sort_elements_by_year(result['jpcrp_cor:NetAssetsSummaryOfBusinessResults']) %}
+                <td>
+                {{ value }}
+                </td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+

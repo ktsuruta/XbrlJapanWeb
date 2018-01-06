@@ -1,0 +1,8 @@
+.table thead th {
+    font-size: small;
+}
+
+.table tbody td.row_index {
+    font-size: small;
+    width: 200px;
+}

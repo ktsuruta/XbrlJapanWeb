@@ -1,0 +1,55 @@
+
+{% extends "base.html" %}
+{% block page_content %}
+        <h2>Half Year Report</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Conpany Name</th>
+              <th>Report Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for document in result_half_year %}
+                <tr>
+                    <td>
+                        <a href='/corporation/{{document["code"]}}'>
+                        {{get_element(document,"jpcrp_cor:CompanyNameInEnglishCoverPage","FilingDateInstant")}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href='/corporation/{{document["code"]}}/half_year_report?file_name={{get_element(document, "file_name")}}'>
+                        {{get_element(document,"report_date")}}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <h2>Half Year Report (Format 2)</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Conpany Name</th>
+              <th>Report Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for document in result_half_year_2 %}
+                <tr>
+                    <td>
+                        <a href='/corporation/{{document["code"]}}'>
+                        {{get_element(document,"jpcrp_cor:CompanyNameInEnglishCoverPage","FilingDateInstant")}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href='/corporation/{{document["code"]}}/half_year_report_2?file_name={{get_element(document, "file_name")}}'>
+                        {{get_element(document,"report_date")}}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+{% endblock %}

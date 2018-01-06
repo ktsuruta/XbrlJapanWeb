@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='customize.css') }}">
+    {% endblock %}
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Dashboard</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="http://127.0.0.1:5000/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Settings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Help</a>
+            </li>
+          </ul>
+          <div class="form-inline mt-2 mt-md-0" id="form-search-keyword">
+            <input class="form-control mr-sm-2" id="search-keyword" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="search()" id="button-search-keyword" type="button">Search</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Overview<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/report/annual_report">Annual Report</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/report/half_year_report">Half Year Report</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/report/quarter_report">Quarter Report</a>
+            </li>
+          </ul>
+
+          <div id="menu">
+            <div class="panel list-group">
+              <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sm" data-parent="#menu">Sectors</a>
+              <div id="sm" class="sublinks collapse">
+                <ul class="nav nav-pills flex-column collapse">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Fishery, Agriculture & Forestry</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Foods</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Mining</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Oil and Coal Products</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Construction</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Metal Products</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Glass and Ceramics Products</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Textiles and Apparels</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Pulp and Paper</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Chemicals</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Pharmaceutical</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Rubber Products</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Transportation Equipment</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Iron and Steel</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Nonferrous Metals</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Machinery</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Electric Appliances</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Precision Instruments</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Other Products</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Information & Communication</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Electric Power and Gas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Land Transportation</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Marine Transportation</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Air Transportation</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Warehousing and Harbor Transportation</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Wholesale Trade</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Retail Trade</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Banks</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Securities and Commodities Futures</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Insurance</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Other Financing Business</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Real Estate</a>
+                  </li>
+                </ul>
+              </div>
+
+              <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sl" data-parent="#menu">Analytics</a>
+              <div id="sl" class="sublinks collapse">
+                <ul class="nav nav-pills flex-column collapse">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Fishery, Agriculture & Forestry</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Foods</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Mining</a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+
+        </nav>
+
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+          {% block page_content %}
+          {% endblock %}
+        </main>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+    <script>
+        function search() {
+            query = $("#search-keyword").val();
+            url = "/report/search?query=" + query;
+            location.href = url;
+        }
+        $("#search-keyword").keydown(function(event) {
+            if (event.keyCode == 13) {
+                $('#button-search-keyword').click();
+            }
+        });
+    </script>
+  </body>
+</html>
+
+
+
+

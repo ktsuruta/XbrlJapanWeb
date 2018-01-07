@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% import "_macros.html" as macros %}
 
 {% block page_content %}
+
+
       <div class="table-responsive">
         <h2>Annual Report ({{count_annual}})</h2>
+        {{ macros.paging("/report/annual_report", page, 100) }}
         <table class="table table-striped">
           <thead>
             <tr>

@@ -1,33 +1,9 @@
 {% extends "base.html" %}
+{% import "_macros.html" as macros %}
 
 {% block page_content %}
         <h2>Quarter Report</h2>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Conpany Name</th>
-              <th>Report Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for document in result_quarter %}
-                <tr>
-                    <td>
-                        <a href='/corporation/{{document["code"]}}'>
-                        {{get_element(document,"jpcrp_cor:CompanyNameInEnglishCoverPage","FilingDateInstant")}}
-                        </a>
-                    </td>
-                    <td>
-                        <a href='/corporation/{{document["code"]}}/quarter_report?file_name={{get_element(document, "file_name")}}'>
-                        {{get_element(document,"report_date")}}
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-        <h2>Quarter Report (Format 2)</h2>
+        {{ macros.paging("/report/annual_report", page, 100) }}
         <table class="table table-striped">
           <thead>
             <tr>

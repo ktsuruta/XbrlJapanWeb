@@ -20,6 +20,15 @@ class MongoDBCommonModule():
             sort = pymongo.DESCENDING
         return self.collection.find({}).sort([(sort_key, sort)]).limit(limit_num)
 
+    def get_documents_by_page(self, sort_key="report_date", order='Descending', page=0, records_by_page=50):
+        start_record = page * records_by_page
+        if order == 'Ascending':
+            sort = pymongo.ASCENDING
+        elif order == 'Descending':
+            sort = pymongo.DESCENDING
+
+        return self.collection.find({}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
+
     def get_corporation_data(self,code):
         return_dict = collections.defaultdict()
         tmp_file_names = self.collection.distinct("file_name",{"code": code})

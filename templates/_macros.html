@@ -28,7 +28,7 @@
 {% endmacro %}
 
 
-{% macro create_table_for_index_page(title, result,count, get_element, db_annual, db_sector) %}
+{% macro create_table_for_index_page(title, link_more, result,count, get_element, db_annual, db_sector) %}
         <h2>{{ title }} ({{count}})</h2>
         <table class="table table-striped">
           <thead>
@@ -58,4 +58,36 @@
             {% endfor %}
           </tbody>
         </table>
+        <button type="button" class="btn btn-link" href="{{link_more}}">More</button>
+
+{% endmacro %}
+
+{% macro paging(base_url, page, total_page) %}
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if page > 0 %}
+        <li class="page-item">
+          <a class="page-link" href="{{base_url}}?page={{page-1}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if page > 2 %}
+            <li class="page-item"><a class="page-link" href="{{base_url}}?page={{page-3}}">{{page-3}}</a></li>
+            <li class="page-item"><a class="page-link" href="{{base_url}}?page={{page-2}}">{{page-2}}</a></li>
+            <li class="page-item"><a class="page-link" href="{{base_url}}?page={{page-1}}">{{page-1}}</a></li>
+        {% endif %}
+        <li class="page-item active"><a class="page-link" href={{base_url}}?page={{page}}>{{page}}</a></li>
+        <li class="page-item"><a class="page-link" href={{base_url}}?page={{page+1}}>{{page+1}}</a></li>
+        <li class="page-item"><a class="page-link" href={{base_url}}?page={{page+2}}>{{page+2}}</a></li>
+        <li class="page-item"><a class="page-link" href={{base_url}}?page={{page+3}}>{{page+3}}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="{{base_url}}?page={{page+1}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 {% endmacro %}

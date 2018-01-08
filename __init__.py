@@ -15,8 +15,10 @@ def create_app():
     from .corporation import corporation as corporation_blueprint
     app.register_blueprint(corporation_blueprint, url_prefix='/corporation')
 
-
     from .report import report as report_blueprint
     app.register_blueprint(report_blueprint, url_prefix='/report')
+
+    from .sector import sector as sector_blueprint
+    app.register_blueprint(sector_blueprint, url_prefix='/sector')
 
     return app

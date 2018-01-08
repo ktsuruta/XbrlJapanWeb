@@ -11,8 +11,13 @@ def annual_report():
         page = int(request.args.get('page'))
     else:
         page = 0
+    if request.args.get('sort_key') is not None:
+        sort_key = request.args.get('sort_key')
+    else:
+        sort_key = "report_date"
+
     db_annual = models.MongoDBControllerJpcrp030000()
-    result_annual = db_annual.get_documents_by_page(sort_key="report_date", order='Descending', page=page, records_by_page=50)
+    result_annual = db_annual.get_documents_by_page(sort_key=sort_key, order='Descending', page=page, records_by_page=50)
     count_annual = db_annual.count_corporations()
 
     return render_template('/report/annual_report.html', result_annual=result_annual, count_annual=count_annual, page=page, \
@@ -55,19 +60,3 @@ def half_year_report():
     return render_template('/report/half_year_report.html', result_half_year=result_half_year, count_half_year=count_half_year, page=page, \
                            result_half_year_2=result_half_year_2, count_half_year_2=count_half_year_2, \
                            get_element=module.get_element)
-
-@report.route('/search', methods=['GET'])
-def search_reports():
-    query = request.args.get('query')
-
-    db_annual = models.MongoDBControllerJpcrp030000()
-    result_annual = db_annual.search_documents_by_query(query)
-
-    db_quarter = models.MongoDBControllerJpcrp040300()
-    result_quarter = db_quarter.search_documents_by_query(query)
-
-    db_half = models.MongoDBControllerJpcrp050000()
-    result_half_year = db_half.search_documents_by_query(query)
-
-
-    return render_template('/report/search.html', result_annual=result_annual,result_quarter=result_quarter, result_half_year=result_half_year, query=query, get_element=module.get_element)

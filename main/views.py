@@ -40,3 +40,19 @@ def index():
                            result_quarter=result_quarter, count_quarter=count_quarter, \
                            result_quarter_2=result_quarter_2, count_quarter_2=count_quarter_2,\
                            get_element=module.get_element, db_sector=db_sector, db_annual=db_annual)
+
+@main.route('/search', methods=['GET'])
+def search_reports():
+    query = request.args.get('query')
+
+    db_annual = models.MongoDBControllerJpcrp030000()
+    result_annual = db_annual.search_documents_by_query(query)
+
+    db_quarter = models.MongoDBControllerJpcrp040300()
+    result_quarter = db_quarter.search_documents_by_query(query)
+
+    db_half = models.MongoDBControllerJpcrp050000()
+    result_half_year = db_half.search_documents_by_query(query)
+
+
+    return render_template('search.html', result_annual=result_annual,result_quarter=result_quarter, result_half_year=result_half_year, query=query, get_element=module.get_element)

@@ -12,6 +12,8 @@
             <tr>
               <th>Conpany Name</th>
               <th>Report Date</th>
+              <th><a href="/report/annual_report?sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration">Report Date</th>
+              <th><a href="/report/annual_report?sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember">Report Date</th>
             </tr>
           </thead>
           <tbody>
@@ -26,6 +28,12 @@
                         <a href='/corporation/{{document["code"]}}/annual_report?file_name={{get_element(document, "file_name")}}'>
                             {{get_element(document,"report_date")}}
                         </a>
+                    </td>
+                    <td>
+                        {{get_element(document,"jpcrp_cor:NetSalesSummaryOfBusinessResults","CurrentYearDuration")}}
+                    </td>
+                    <td>
+                        {{get_element(document,"jpcrp_cor:NetSalesSummaryOfBusinessResults","CurrentYearDuration_NonConsolidatedMember")}}
                     </td>
                 </tr>
             {% endfor %}

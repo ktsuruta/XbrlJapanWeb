@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+<h2>{{ sectorname }} ({{ count_annual }})</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><a href="/sector/{{ sectorcode }}?sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration" >Net Sales</a></th>
+                <th><a href="/sector/{{ sectorcode }}?sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember" >Net Sales <br> NonConsolidatedMember</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in result_annual %}
+            <tr>
+                <td>{{ counter.increment() }}</td>
+                <td><a href="/corporation/{{ document['code'] }}">{{get_element(document,"jpcrp_cor:CompanyNameInEnglishCoverPage","FilingDateInstant")}}</a></td>
+                <td>{{ document['report_date'] }}</td>
+                <td>{{get_element(document,"jpcrp_cor:NetSalesSummaryOfBusinessResults","CurrentYearDuration")}}</td>
+                <td>{{get_element(document,"jpcrp_cor:NetSalesSummaryOfBusinessResults","CurrentYearDuration_NonConsolidatedMember")}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+

@@ -82,28 +82,33 @@ class MongoDBCommonModule():
             return InstanseMongoDBControlerSector.get_sector_of_corporation(SecurityCodeDEI)
         return None
 
+    def get_coporations_by_SecurityCodeDEI(self, SecurityCodeDEI="", sort_key=None):
+        return_list_of_dict = []
+        if type(SecurityCodeDEI) == list:
+            for code in SecurityCodeDEI:
+                return_list_of_dict.append(self.collection.find({"jpdei_cor:SecurityCodeDEI.FilingDateInstant" : code}).sort([("report_date", pymongo.DESCENDING)])[0])
+            if sort_key is not None:
+                print("before start " + str(len(return_list_of_dict)))
+                new_return_list_of_dict = []
+                for dict in return_list_of_dict:
+                    if sort_key.split('.')[0] in dict:
+                        if sort_key.split('.')[1] in dict[sort_key.split('.')[0]]:
+                            if dict[sort_key.split('.')[0]][sort_key.split('.')[1]] is not None:
+                                new_return_list_of_dict.append(dict)
+                print("after start " + str(len(new_return_list_of_dict)))
+                return_list_of_dict = sorted(new_return_list_of_dict, key=lambda k: int(k[sort_key.split('.')[0]][sort_key.split('.')[1]]), reverse=True)
+            return return_list_of_dict
+        else:
+            if self.collection.find({"jpdei_cor:SecurityCodeDEI.FilingDateInstant": SecurityCodeDEI}).count() > 0:
+                return self.collection.find({"jpdei_cor:SecurityCodeDEI.FilingDateInstant": SecurityCodeDEI}).sort([(sort_key, pymongo.DESCENDING)])[0]
+            else:
+                return None
+
     def is_exist(self,code):
         if self.collection.find({"code":code}).count() == 0:
             return False
         else:
             return True
-
-class MongoDBParsedDataImporter(MongoDBConnector):
-    '''
-    '''
-    def __init__(self):
-        # noinspection PyUnresolvedReferences
-        MongoDBConnector.__init__(self)
-
-    def import_parser(self, XbrlParser):
-        self.financial_reports = self.db.financial_reports
-        tmp_dict = collections.defaultdict(list)
-        tmp_dict["code"] = XbrlParser.get_code()
-        tmp_dict["report_date"] = XbrlParser.get_report_date()
-        tmp_dict["file_name"] = XbrlParser.get_file_name()
-        tmp_dict.update(XbrlParser.get_financial_data())
-        self.db[XbrlParser.get_doc_type()].insert_one(tmp_dict).inserted_id
-
 
 class MongoDBControlerSector(MongoDBConnector, MongoDBCommonModule):
 
@@ -120,6 +125,14 @@ class MongoDBControlerSector(MongoDBConnector, MongoDBCommonModule):
             return self.collection.find_one({"SecurityCodeDEI": SecurityCodeDEI})['Sector']
         else:
             return None
+
+    def get_SecurityCodeDEI_by_sector(self, sectorcode):
+        if len(self.collection.find({"SectorCode": sectorcode}).distinct("SecurityCodeDEI")) > 0:
+            len(self.collection.find({"SectorCode": sectorcode}).distinct("SecurityCodeDEI"))
+            return self.collection.find({"SectorCode": sectorcode}).distinct("SecurityCodeDEI")
+        else:
+            return None
+
 
 class MongoDBControllerJpcrp030000(MongoDBConnector,MongoDBCommonModule ):
     '''

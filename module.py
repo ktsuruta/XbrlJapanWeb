@@ -119,3 +119,11 @@ def get_element(document, element, attrib=None):
         pass
     except:
         return 0
+
+class counter():
+    def __init__(self, num):
+        self.count = num
+
+    def increment(self):
+        self.count = self.count + 1
+        return self.count

@@ -120,6 +120,15 @@ def get_element(document, element, attrib=None):
     except:
         return 0
 
+def float_to_str(flt):
+    return str(int(flt))
+
+def str_to_float(st):
+    return float(int(st))
+
+def is_element_exist(dict,element):
+    return element in dict
+
 class counter():
     def __init__(self, num):
         self.count = num
@@ -127,3 +136,4 @@ class counter():
     def increment(self):
         self.count = self.count + 1
         return self.count
+

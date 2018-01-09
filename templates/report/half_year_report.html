@@ -3,7 +3,7 @@
 
 {% block page_content %}
         <h2>Half Year Report</h2>
-        {{ macros.paging("/report/annual_report", page, 100) }}
+        {{ macros.paging("/report/annual_report", page, 100, sort_key) }}
         <table class="table table-striped">
           <thead>
             <tr>

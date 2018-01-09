@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for, abort, flash, request,\
 current_app, make_response
 from pymongo import MongoClient
 from . import corporation
+from .. import common
 from .. import models
 from .. import module
 
@@ -69,7 +70,7 @@ def index(code):
     return render_template('/corporation/corporation.html', code=code, sector=sector, result=result, docs_annual_report=docs_annual_report, docs_annual_report_2=docs_annual_report_2, \
                            docs_quarter_report=docs_quarter_report, docs_quarter_report_2=docs_quarter_report_2, docs_half_year=docs_half_year, \
                            docs_half_year_2=docs_half_year_2, get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, \
-                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, get_values_from_list=module.get_values_from_list, \
+                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, get_values_from_list=module.get_values_from_list,  \
                            format_element_name=module.format_element_name, db_sector=db_sector, db_annual=db_annual )
 
 @corporation.route('/<code>/annual_report', methods=['GET'])
@@ -81,8 +82,8 @@ def annual_report(code):
     else:
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_annual_report.html', result=result, file_name=file_name, \
-                           get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, \
-                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, \
+                           get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, common=common, \
+                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 
 @corporation.route('/<code>/quarter_report', methods=['GET'])
@@ -95,7 +96,7 @@ def quarter_report(code):
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_quarter_report.html', result=result, file_name=file_name, \
                            get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, \
-                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, \
+                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 
 @corporation.route('/<code>/quarter_report_2', methods=['GET'])
@@ -108,7 +109,7 @@ def quarter_report_2(code):
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_quarter_report_2.html', result=result, file_name=file_name, \
                            get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, \
-                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, \
+                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 
 
@@ -122,7 +123,7 @@ def half_year_report(code):
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_half_year_report.html', result=result, get_element=module.get_element, file_name=file_name, \
                            sort_elements_by_year=module.sort_elements_by_year, \
-                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, \
+                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 
 @corporation.route('/<code>/half_year_report_2', methods=['GET'])
@@ -135,7 +136,7 @@ def half_year_report_2(code):
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_half_year_report_2.html', result=result, get_element=module.get_element, file_name=file_name, \
                            sort_elements_by_year=module.sort_elements_by_year, \
-                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, \
+                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 
 

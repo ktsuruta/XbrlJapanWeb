@@ -47,10 +47,21 @@
             </tr>
         </tbody>
     </table>
+     <h3>Income</h3>
+     {% for el in common.annual_income %}
+         {{ macros.create_table_for_element(result, el, sort_dict_value, sort_dict_key, format_element_name, is_element_exist) }}
+     {% endfor %}
+     <h3>Balance Sheet</h3>
+     {% for el in common.annual_balance_sheet %}
+         {{ macros.create_table_for_element(result, el, sort_dict_value, sort_dict_key, format_element_name, is_element_exist) }}
+     {% endfor %}
 
-     {{ macros.create_table_for_element(result, 'jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults', sort_dict_value, sort_dict_key, format_element_name) }}
-     {{ macros.create_table_for_element(result, 'jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults', sort_dict_value, sort_dict_key, format_element_name) }}
-     {{ macros.create_table_for_element(result, 'jpcrp_cor:NetIncomeLossSummaryOfBusinessResults', sort_dict_value, sort_dict_key, format_element_name) }}
+     <h3>Cash Flow</h3>
+     {% for el in common.annual_cash_flow %}
+         {{ macros.create_table_for_element(result, el, sort_dict_value, sort_dict_key, format_element_name, is_element_exist) }}
+     {% endfor %}
+
+
 
 {% endblock %}
 

@@ -1,6 +1,7 @@
 import collections as collections
 import pymongo
 from pymongo import MongoClient
+from . import module
 
 
 class MongoDBConnector():
@@ -79,6 +80,7 @@ class MongoDBCommonModule():
     def get_sector(self,code, InstanseMongoDBControlerSector):
         if self.collection.find({"$and": [{"code": code}, {"jpdei_cor:SecurityCodeDEI.FilingDateInstant": {"$ne": None}}]}).count() > 0:
             SecurityCodeDEI = self.collection.find_one({"$and": [{"code": code}, {"jpdei_cor:SecurityCodeDEI.FilingDateInstant": {"$ne": None}}]})["jpdei_cor:SecurityCodeDEI"]["FilingDateInstant"]
+            SecurityCodeDEI = module.float_to_str(SecurityCodeDEI)
             return InstanseMongoDBControlerSector.get_sector_of_corporation(SecurityCodeDEI)
         return None
 
@@ -86,6 +88,7 @@ class MongoDBCommonModule():
         return_list_of_dict = []
         if type(SecurityCodeDEI) == list:
             for code in SecurityCodeDEI:
+                code = module.str_to_float(code)
                 return_list_of_dict.append(self.collection.find({"jpdei_cor:SecurityCodeDEI.FilingDateInstant" : code}).sort([("report_date", pymongo.DESCENDING)])[0])
             if sort_key is not None:
                 print("before start " + str(len(return_list_of_dict)))

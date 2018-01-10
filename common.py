@@ -1,3 +1,5 @@
+DEFAULT_YEAR = '2017'
+
 mapping_sector = {"1": 'Fishery, Agriculture & Forestry' ,
                     "2": 'Foods',
                     "3":'Mining',

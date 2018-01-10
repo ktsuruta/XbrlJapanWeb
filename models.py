@@ -1,7 +1,9 @@
 import collections as collections
+import datetime
 import pymongo
 from pymongo import MongoClient
 from . import module
+from . import common
 
 
 class MongoDBConnector():
@@ -21,14 +23,18 @@ class MongoDBCommonModule():
             sort = pymongo.DESCENDING
         return self.collection.find({}).sort([(sort_key, sort)]).limit(limit_num)
 
-    def get_documents_by_page(self, sort_key="report_date", order='Descending', page=0, records_by_page=50):
+    def get_documents_by_page(self, sort_key="report_date", order='Descending', page=0, records_by_page=50, year=None):
         start_record = page * records_by_page
         if order == 'Ascending':
             sort = pymongo.ASCENDING
         elif order == 'Descending':
             sort = pymongo.DESCENDING
+        if year is None:
+            year = common.DEFAULT_YEAR
+        year_start = datetime.datetime(year, 1, 1, 0, 0, 0)
+        year_end = datetime.datetime(year, 12, 31, 23, 59, 0)
 
-        return self.collection.find({}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
+        return self.collection.find({'report_date':{'$lt': year_end, '$gte': year_start}}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
 
     def get_corporation_data(self,code):
         return_dict = collections.defaultdict()

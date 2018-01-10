@@ -3,7 +3,8 @@
 
 {% block page_content %}
         <h2>Half Year Report</h2>
-        {{ macros.paging("/report/annual_report", page, 100, sort_key) }}
+        {{ macros.paging("/report/annual_report", page, 100, sort_key, year) }}
+        {{ macros.select_year("/report/half_year_report") }}
         <table class="table table-striped">
           <thead>
             <tr>
@@ -20,7 +21,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href='/corporation/{{document["code"]}}/half_year_report?file_name={{get_element(document, "file_name")}}'>
+                        <a href='/corporation/{{document["code"]}}/half_year_report?year={{year}}&file_name={{get_element(document, "file_name")}}'>
                         {{get_element(document,"report_date")}}
                         </a>
                     </td>
@@ -46,7 +47,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href='/corporation/{{document["code"]}}/half_year_report_2?file_name={{get_element(document, "file_name")}}'>
+                        <a href='/corporation/{{document["code"]}}/half_year_report_2?year={{year}}&file_name={{get_element(document, "file_name")}}'>
                         {{get_element(document,"report_date")}}
                         </a>
                     </td>

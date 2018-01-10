@@ -64,28 +64,28 @@
 
 {% endmacro %}
 
-{% macro paging(base_url, page, total_page, sort_key) %}
+{% macro paging(base_url, page, total_page, sort_key, year) %}
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         {% if page > 0 %}
         <li class="page-item">
-          <a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page-1}}" aria-label="Previous">
+          <a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page-1}}&year={{year}}" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
           </a>
         </li>
         {% endif %}
         {% if page > 2 %}
-            <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page-3}}">{{page-3}}</a></li>
-            <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page-2}}">{{page-2}}</a></li>
-            <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page-1}}">{{page-1}}</a></li>
+            <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page-3}}&year={{year}}">{{page-3}}</a></li>
+            <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page-2}}&year={{year}}">{{page-2}}</a></li>
+            <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page-1}}&year={{year}}">{{page-1}}</a></li>
         {% endif %}
-        <li class="page-item active"><a class="page-link" href={{base_url}}?sort_key={{ sort_key }}&page={{page}}>{{page}}</a></li>
-        <li class="page-item"><a class="page-link" href={{base_url}}?sort_key={{ sort_key }}&page={{page+1}}>{{page+1}}</a></li>
-        <li class="page-item"><a class="page-link" href={{base_url}}?sort_key={{ sort_key }}&page={{page+2}}>{{page+2}}</a></li>
-        <li class="page-item"><a class="page-link" href={{base_url}}?sort_key={{ sort_key }}&page={{page+3}}>{{page+3}}</a></li>
+        <li class="page-item active"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page}}&year={{year}}">{{page}}</a></li>
+        <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page+1}}&year={{year}}">{{page+1}}</a></li>
+        <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page+2}}&year={{year}}">{{page+2}}</a></li>
+        <li class="page-item"><a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page+3}}&year={{year}}">{{page+3}}</a></li>
         <li class="page-item">
-          <a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page+1}}" aria-label="Next">
+          <a class="page-link" href="{{base_url}}?sort_key={{ sort_key }}&page={{page+1}}&year={{year}}" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
           </a>
@@ -93,3 +93,16 @@
       </ul>
     </nav>
 {% endmacro %}
+
+{% macro select_year(url) %}
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Action
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url}}?year=2017">2017</a>
+        <a class="dropdown-item" href="{{url}}?year=2016">2016</a>
+        <a class="dropdown-item" href="{{url}}?year=2015">2015</a>
+      </div>
+    </div>
+{% endmacro %}{

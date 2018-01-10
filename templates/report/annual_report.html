@@ -3,21 +3,21 @@
 
 {% block page_content %}
 
-
       <div class="table-responsive">
         <h2>Annual Report ({{count_annual}})</h2>
-        {{ macros.paging("/report/annual_report", page, 100, sort_key) }}
+        {{ macros.paging("/report/annual_report", page, 100, sort_key, year) }}
+        {{ macros.select_year("/report/annual_report") }}
         <table class="table table-striped">
           <thead>
             <tr>
               <th>Conpany Name</th>
               <th>Report Date</th>
-              <th><a href="/report/annual_report?sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration">Net Sales</th>
-              <th><a href="/report/annual_report?sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember">Net Sales<br>NonConsolidatedMember</th>
-              <th><a href="/report/annual_report?sort_key=jpcrp_cor:OperatingRevenue1SummaryOfBusinessResults.CurrentYearDuration">Operating revenue</th>
-              <th><a href="/report/annual_report?sort_key=jpcrp_cor:OperatingRevenue1SummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember">Operating revenue <br>NonConsolidatedMember</th>
-              <th><a href="/report/annual_report?sort_key=jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults.CurrentYearDuration">Operating revenue</th>
-              <th><a href="/report/annual_report?sort_key=jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember">Operating revenue <br>NonConsolidatedMember</th>
+              <th><a href="/report/annual_report?year={{year}}&sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration">Net Sales</th>
+              <th><a href="/report/annual_report?year={{year}}&sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember">Net Sales<br>NonConsolidatedMember</th>
+              <th><a href="/report/annual_report?year={{year}}&sort_key=jpcrp_cor:OperatingRevenue1SummaryOfBusinessResults.CurrentYearDuration">Operating revenue</th>
+              <th><a href="/report/annual_report?year={{year}}&sort_key=jpcrp_cor:OperatingRevenue1SummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember">Operating revenue <br>NonConsolidatedMember</th>
+              <th><a href="/report/annual_report?year={{year}}&sort_key=jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults.CurrentYearDuration">Operating revenue</th>
+              <th><a href="/report/annual_report?year={{year}}&sort_key=jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember">Operating revenue <br>NonConsolidatedMember</th>
             </tr>
           </thead>
           <tbody>

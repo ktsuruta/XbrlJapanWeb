@@ -1,4 +1,4 @@
-{% macro create_table_for_element(document, element, sort_dict_value, sort_dict_key, format_element_name, is_element_exist) %}
+{% macro create_table_for_element(document, element,element_name,    sort_dict_value, sort_dict_key, format_element_name, is_element_exist) %}
     {% if is_element_exist(document, element) %}
     <table class="table table-striped">
         <thead>
@@ -18,7 +18,7 @@
         <tbody>
             <tr>
                 <td class="row_index">
-                    {{ format_element_name(element) }}
+                    {{ element_name }}
                 </td>
                 {% for value in sort_dict_value(document[element]) %}
                     <td>{{ value }}</td>
@@ -30,7 +30,7 @@
 {% endmacro %}
 
 
-{% macro create_table_for_index_page(title, link_more, result,count, get_element, db_annual, db_sector) %}
+{% macro create_table_for_index_page(title, doc_type, result,count, get_element, db_annual, db_sector) %}
         <h2>{{ title }} ({{count}})</h2>
         <table class="table table-striped">
           <thead>
@@ -49,7 +49,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href='./corporation/{{document["code"]}}/quarter_report?file_name={{get_element(document, "file_name")}}'>
+                        <a href='./corporation/{{document["code"]}}/{{doc_type}}?file_name={{get_element(document, "file_name")}}'>
                         {{get_element(document,"report_date")}}
                         </a>
                     </td>
@@ -97,9 +97,10 @@
 {% macro select_year(url) %}
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Action
+        Year
       </button>
       <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url}}?year=2018">2018</a>
         <a class="dropdown-item" href="{{url}}?year=2017">2017</a>
         <a class="dropdown-item" href="{{url}}?year=2016">2016</a>
         <a class="dropdown-item" href="{{url}}?year=2015">2015</a>

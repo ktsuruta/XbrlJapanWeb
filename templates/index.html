@@ -4,9 +4,9 @@
 {% block page_content %}
       <div class="table-responsive">
 
-        {{ macros.create_table_for_index_page("Annual Report", "/report/annual_report", result_annual,count_annual, get_element, db_annual, db_sector) }}
-        {{ macros.create_table_for_index_page("Quarter Report", "/report/quarter_report", result_quarter_2,count_quarter_2, get_element, db_annual, db_sector) }}
-        {{ macros.create_table_for_index_page("Half Year Report", "/report/half_year_report", result_half_year,count_half_year, get_element, db_annual, db_sector) }}
+        {{ macros.create_table_for_index_page("Annual Report", "annual_report", result_annual,count_annual, get_element, db_annual, db_sector) }}
+        {{ macros.create_table_for_index_page("Quarter Report", "quarter_report", result_quarter_2,count_quarter_2, get_element, db_annual, db_sector) }}
+        {{ macros.create_table_for_index_page("Half Year Report", "half_year_report", result_half_year,count_half_year, get_element, db_annual, db_sector) }}
 
       </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% import "_macros.html" as macros %}
 {% block page_content %}
     <h1>
         {{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }}
@@ -169,6 +169,14 @@
         </tbody>
     </table>
 
+    {% for list in common.annual_report_list %}
+    <h3>{{ list[0] }}</h3>
+        {% for el, el_name in list[1].items() %}
+            {{ macros.create_table_for_element(result, el, el_name,   sort_dict_value, sort_dict_key, format_element_name, is_element_exist) }}
+        {% endfor %}
+    {% endfor %}
+
+<!--
     <table class="table table-striped">
         <thead>
             <tr>
@@ -284,5 +292,6 @@
             </tr>
         </tbody>
     </table>
+-->
 {% endblock %}
 

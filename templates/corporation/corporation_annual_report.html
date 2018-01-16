@@ -47,21 +47,12 @@
             </tr>
         </tbody>
     </table>
-     <h3>Income</h3>
-     {% for el in common.annual_income %}
-         {{ macros.create_table_for_element(result, el, sort_dict_value, sort_dict_key, format_element_name, is_element_exist) }}
-     {% endfor %}
-     <h3>Balance Sheet</h3>
-     {% for el in common.annual_balance_sheet %}
-         {{ macros.create_table_for_element(result, el, sort_dict_value, sort_dict_key, format_element_name, is_element_exist) }}
-     {% endfor %}
 
-     <h3>Cash Flow</h3>
-     {% for el in common.annual_cash_flow %}
-         {{ macros.create_table_for_element(result, el, sort_dict_value, sort_dict_key, format_element_name, is_element_exist) }}
-     {% endfor %}
-
-
-
+    {% for list in common.annual_report_list %}
+    <h3>{{ list[0] }}</h3>
+        {% for el, el_name in list[1].items() %}
+            {{ macros.create_table_for_element(result, el, el_name,   sort_dict_value, sort_dict_key, format_element_name, is_element_exist) }}
+        {% endfor %}
+    {% endfor %}
 {% endblock %}
 

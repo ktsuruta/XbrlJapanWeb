@@ -142,6 +142,20 @@ class MongoDBControlerSector(MongoDBConnector, MongoDBCommonModule):
         else:
             return None
 
+    def count_by_group(self, sort_key='_id'):
+        if sort_key != 'count':
+            sort_key == '_id'
+        from bson.son import SON
+        pipeline = [{'$group': {'_id': '$SectorCode', 'count': {'$sum': 1}}},
+                    {'$sort': SON([('count', -1), ('_id', -1)])}
+                    ]
+        return_list = list(self.collection.aggregate(pipeline))
+        if sort_key == 'count':
+            return_list.sort(key=lambda k: int(k[sort_key]), reverse=True)
+        else:
+            return_list.sort(key=lambda k: int(k[sort_key]))
+
+        return return_list
 
 class MongoDBControllerJpcrp030000(MongoDBConnector,MongoDBCommonModule ):
     '''

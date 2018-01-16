@@ -68,10 +68,10 @@ def index(code):
     db_sector = models.MongoDBControlerSector()
     sector = db_annual.get_sector(code, db_sector)
     return render_template('/corporation/corporation.html', code=code, sector=sector, result=result, docs_annual_report=docs_annual_report, docs_annual_report_2=docs_annual_report_2, \
-                           docs_quarter_report=docs_quarter_report, docs_quarter_report_2=docs_quarter_report_2, docs_half_year=docs_half_year, \
+                           docs_quarter_report=docs_quarter_report, docs_quarter_report_2=docs_quarter_report_2, docs_half_year=docs_half_year,common=common, \
                            docs_half_year_2=docs_half_year_2, get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, \
-                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, get_values_from_list=module.get_values_from_list,  \
-                           format_element_name=module.format_element_name, db_sector=db_sector, db_annual=db_annual )
+                           change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, get_values_from_list=module.get_values_from_list, is_element_exist=module.is_element_exist, \
+                           format_element_name=module.format_element_name, sort_dict_key=module.sort_dict_key,sort_dict_value=module.sort_dict_value, db_sector=db_sector, db_annual=db_annual )
 
 @corporation.route('/<code>/annual_report', methods=['GET'])
 def annual_report(code):
@@ -95,7 +95,7 @@ def quarter_report(code):
     else:
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_quarter_report.html', result=result, file_name=file_name, \
-                           get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, \
+                           get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, common=common, \
                            change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 
@@ -108,7 +108,7 @@ def quarter_report_2(code):
     else:
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_quarter_report_2.html', result=result, file_name=file_name, \
-                           get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, \
+                           get_element=module.get_element, sort_elements_by_year=module.sort_elements_by_year, common=common, \
                            change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 
@@ -122,7 +122,7 @@ def half_year_report(code):
     else:
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_half_year_report.html', result=result, get_element=module.get_element, file_name=file_name, \
-                           sort_elements_by_year=module.sort_elements_by_year, \
+                           sort_elements_by_year=module.sort_elements_by_year, common=common, \
                            change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 
@@ -135,7 +135,7 @@ def half_year_report_2(code):
     else:
         result = db_annual.get_the_latest_document(code)
     return render_template('/corporation/corporation_half_year_report_2.html', result=result, get_element=module.get_element, file_name=file_name, \
-                           sort_elements_by_year=module.sort_elements_by_year, \
+                           sort_elements_by_year=module.sort_elements_by_year, common=common, \
                            change_security_code_to_yahoo_code=module.change_security_code_to_yahoo_code, format_element_name=module.format_element_name, is_element_exist=module.is_element_exist, \
                            get_values_from_list=module.get_values_from_list, sort_dict_value=module.sort_dict_value, sort_dict_key=module.sort_dict_key)
 

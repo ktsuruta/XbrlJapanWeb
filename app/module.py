@@ -1,4 +1,5 @@
 import re
+import app.common as common
 
 
 def _sort_key_list(keys):
@@ -137,3 +138,8 @@ class counter():
         self.count = self.count + 1
         return self.count
 
+def get_sector_name(sector_code):
+    if sector_code in common.mapping_sector:
+        return common.mapping_sector[sector_code]
+    else:
+        return None

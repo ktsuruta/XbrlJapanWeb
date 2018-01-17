@@ -119,6 +119,19 @@ class MongoDBCommonModule():
         else:
             return True
 
+class MongoDBControlerCorporation(MongoDBConnector, MongoDBCommonModule):
+    def __init__(self):
+        MongoDBConnector.__init__(self)
+        self.collection = self.db['Corporation']
+
+    def get_rankings(self, sector_code=None, sort_key=None):
+        '''
+        This method gets ranking list.
+        :param sector_code: <str> sector code
+        :param sort_key: <str> the element name
+        :return: <list> list of dicts of corporations, including company names and figures.
+        '''
+
 class MongoDBControlerSector(MongoDBConnector, MongoDBCommonModule):
 
     def __init__(self):

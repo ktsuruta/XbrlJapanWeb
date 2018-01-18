@@ -13,10 +13,18 @@ class MongoDBConnector():
 
 class MongoDBCommonModule():
     '''
-    :param
-    :return
+    This is a class to implement common methods for db-related classes
     '''
+
     def get_all_documents(self, sort_key="report_date", order='Descending', limit_num=10):
+        '''
+        This method gets latest documents of limit number.The documents come from the collection of the parent class
+        of this class.
+        :param sort_key:<str> default value is "report_date".
+        :param order: <str> "Descending or Ascending. Otherwise, Descending is set.
+        :param limit_num: <int> The number of documents
+        :return: <list>
+        '''
         if order == 'Ascending':
             sort = pymongo.ASCENDING
         elif order == 'Descending':
@@ -24,6 +32,16 @@ class MongoDBCommonModule():
         return self.collection.find({}).sort([(sort_key, sort)]).limit(limit_num)
 
     def get_documents_by_page(self, sort_key="report_date", order='Descending', page=0, records_by_page=50, year=None):
+        '''
+        This method gets documents with pagination function. The documents come from the collection of the parent class
+        of this class.
+        :param sort_key: <str> Default value is report date.
+        :param order: <str> Default value is Descending.
+        :param page: <int> The first page of the result.
+        :param records_by_page: <int>
+        :param year: <str:yyyy> The defaulf value is
+        :return: <list>
+        '''
         start_record = page * records_by_page
         if order == 'Ascending':
             sort = pymongo.ASCENDING
@@ -124,13 +142,16 @@ class MongoDBControlerCorporation(MongoDBConnector, MongoDBCommonModule):
         MongoDBConnector.__init__(self)
         self.collection = self.db['Corporation']
 
-    def get_rankings(self, sector_code=None, sort_key=None):
+    def get_rankings_by_sector(self, sector_code=None, sort_key=None):
         '''
         This method gets ranking list.
         :param sector_code: <str> sector code
         :param sort_key: <str> the element name
         :return: <list> list of dicts of corporations, including company names and figures.
         '''
+        sector = common.mapping_sector[sector_code]
+        return self.collection.find({"Sector":sector}).sort([(sort_key, pymongo.DESCENDING)])
+
 
 class MongoDBControlerSector(MongoDBConnector, MongoDBCommonModule):
 

@@ -36,7 +36,7 @@ def index():
     count_by_group = db_sector.count_by_group()
 
     db_corporation = models.MongoDBControlerCorporation()
-
+    rankings_by_sector_net_sales = db_corporation.get_all_rankings('net_sales_or_revenue')
 
     return render_template('index.html', result_annual=result_annual, count_annual=count_annual, \
                            result_annual_2=result_annual_2, count_annual_2=count_annual_2, \
@@ -44,7 +44,8 @@ def index():
                            result_half_year_2=result_half_year_2,count_half_year_2=count_half_year_2, \
                            result_quarter=result_quarter, count_quarter=count_quarter, \
                            result_quarter_2=result_quarter_2, count_quarter_2=count_quarter_2,\
-                           get_element=module.get_element, db_sector=db_sector, db_annual=db_annual, count_by_group=count_by_group)
+                           get_element=module.get_element, db_sector=db_sector, db_annual=db_annual, count_by_group=count_by_group, \
+                           rankings_by_sector_net_sales=rankings_by_sector_net_sales)
 
 @main.route('/search', methods=['GET'])
 def search_reports():

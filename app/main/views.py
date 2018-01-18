@@ -35,6 +35,9 @@ def index():
 
     count_by_group = db_sector.count_by_group()
 
+    db_corporation = models.MongoDBControlerCorporation()
+
+
     return render_template('index.html', result_annual=result_annual, count_annual=count_annual, \
                            result_annual_2=result_annual_2, count_annual_2=count_annual_2, \
                            result_half_year=result_half_year, count_half_year=count_half_year,\

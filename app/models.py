@@ -142,15 +142,28 @@ class MongoDBControlerCorporation(MongoDBConnector, MongoDBCommonModule):
         MongoDBConnector.__init__(self)
         self.collection = self.db['Corporation']
 
-    def get_rankings_by_sector(self, sector_code=None, sort_key=None):
+    def get_ranking_by_sector(self, sector_code=None, sort_key=None, limit_num=10):
         '''
         This method gets ranking list.
         :param sector_code: <str> sector code
         :param sort_key: <str> the element name
+        :param limit_num: <int> The number of documents to get
         :return: <list> list of dicts of corporations, including company names and figures.
         '''
         sector = common.mapping_sector[sector_code]
-        return self.collection.find({"Sector":sector}).sort([(sort_key, pymongo.DESCENDING)])
+        return self.collection.find({"Sector":sector}).sort([(sort_key, pymongo.DESCENDING)]).limit(limit_num)
+
+    def get_all_rankings(self, sort_key=None):
+        '''
+
+        :param sort_key: <str> An element that exists in Corporation collection.
+        :return: <list> List of ranking lists.
+        '''
+        return_list = []
+        for sector_code, _ in common.mapping_sector.items():
+            return_list.append(self.get_ranking_by_sector(sector_code=sector_code, sort_key=sort_key))
+        return return_list
+
 
 
 class MongoDBControlerSector(MongoDBConnector, MongoDBCommonModule):
@@ -190,6 +203,7 @@ class MongoDBControlerSector(MongoDBConnector, MongoDBCommonModule):
             return_list.sort(key=lambda k: int(k[sort_key]))
 
         return return_list
+
 
 class MongoDBControllerJpcrp030000(MongoDBConnector,MongoDBCommonModule ):
     '''

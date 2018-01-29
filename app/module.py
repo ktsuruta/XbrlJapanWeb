@@ -131,6 +131,9 @@ def is_element_exist(dict,element):
     return element in dict
 
 class counter():
+    '''
+    This class counts for iterator.
+    '''
     def __init__(self, num):
         self.count = num
 
@@ -139,6 +142,7 @@ class counter():
         return self.count
 
 def get_sector_name(sector_code):
+    sector_code = str(sector_code)
     if sector_code in common.mapping_sector:
         return common.mapping_sector[sector_code]
     else:

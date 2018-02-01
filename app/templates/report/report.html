@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+
+      <div class="table-responsive">
+        <h2>{{period}} {{sort_key}} ({{result_count}})</h2>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/report?sort_key={{sort_key}}&period=fiscal">Fiscal Year</a></li>
+            <li class="breadcrumb-item"><a href="/report?sort_key={{sort_key}}&period=quarter">Quarter</a></li>
+            <li class="breadcrumb-item"><a href="/report?sort_key={{sort_key}}&period=half">Half</a></li>
+          </ol>
+        </nav>
+
+        {{ macros.paging("/report", page, total_page, sort_key, year, period) }}
+        {{ macros.select_kpi("/report", period) }}
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Conpany Name</th>
+              <th>Report Date</th>
+              <th><a href="/report/annual_report?year={{year}}&sort_key=rate_of_return_on_equity&period={{period}}">Sector</th>
+              <th><a href="/report/annual_report?year={{year}}&sort_key=net_sales_or_revenue&period={{period}}">{{sort_key}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for document in result %}
+                <tr>
+                    <td>
+                        <a href='/corporation/{{document["code"]}}'>
+                        {{get_element(document,"name")}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href='/corporation/{{document["code"]}}/annual_report?file_name={{get_element(document, "file_name")}}'>
+                            {{get_element(document,"report_date")}}
+                        </a>
+                    </td>
+                    <td>
+                        {{get_element(document,"Sector")}}
+                    </td>
+                    <td>
+                        {{get_element(document, sort_key)}}
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+{% endblock %}

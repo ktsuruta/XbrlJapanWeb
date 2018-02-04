@@ -35,8 +35,13 @@ def index():
 
     count_by_group = db_sector.count_by_group()
 
+
+    if request.args.get('sort_key') is not None:
+            sort_key = request.args.get('sort_key')
+    else:
+            sort_key = 'rate_of_return_on_equity'
     db_corporation = models.MongoDBControlerCorporation()
-    rankings_by_rate_of_return_on_equity = db_corporation.get_all_rankings('rate_of_return_on_equity')
+    rankings_by_rate_of_return_on_equity = db_corporation.get_all_rankings(sort_key)
 
     counter = module.counter(1)
     counter_ranking_class = module.counter
@@ -51,7 +56,11 @@ def index():
                            result_quarter_2=result_quarter_2, count_quarter_2=count_quarter_2,\
                            get_element=module.get_element, db_sector=db_sector, db_annual=db_annual, count_by_group=count_by_group, \
                            rankings_by_rate_of_return_on_equity=rankings_by_rate_of_return_on_equity, counter=counter, counter_ranking_class=counter_ranking_class, \
-                           get_sector_name=get_sector_name)
+                           get_sector_name=get_sector_name, sort_key=sort_key)
+
+@main.route('/about')
+def about():
+    return render_template('about.html')
 
 @main.route('/search', methods=['GET'])
 def search_reports():

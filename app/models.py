@@ -142,7 +142,7 @@ class MongoDBControlerCorporation(MongoDBConnector, MongoDBCommonModule):
         MongoDBConnector.__init__(self)
         self.collection = self.db['Corporation']
 
-    def get_ranking_by_period(self, type_of_period="fiscal", sort_key=None,order='Descending', page=0, records_by_page=50):
+    def get_ranking_by_period(self, type_of_period="fiscal", sort_key=None,order='Descending', page=0, records_by_page=50, sector_code=None):
         '''
 
         :param type_of_period: <str> fiscal, quarter, half
@@ -155,22 +155,37 @@ class MongoDBControlerCorporation(MongoDBConnector, MongoDBCommonModule):
             sort = pymongo.ASCENDING
         elif order == 'Descending':
             sort = pymongo.DESCENDING
-
         start_record = page * records_by_page
-        if type_of_period == 'fiscal':
-            return self.collection.find({"$and":[{sort_key: {"$ne": None}},{"type_of_period":'FY'}]}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
-        elif type_of_period == 'quarter':
-#            return self.collection.find({"$or":[{"type_of_period": 'Q1'}, {"type_of_period": 'Q2'},{"type_of_period": 'Q3'}]}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
-            return self.collection.find({"$and":[{sort_key: {"$ne": None}},{"$or":[{"type_of_period": 'Q1'}, {"type_of_period": 'Q2'},{"type_of_period": 'Q3'}]}]}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
-        elif type_of_period == 'half':
-            return self.collection.find({"$and":[{sort_key: {"$ne": None}},{"type_of_period":'HY'}]}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
-        else:
-            raise NotImplemented
 
-    def count_by_period(self, type_of_period="fiscal", sort_key=None):
+        if sector_code is not None:
+            sector = common.mapping_sector[sector_code]
+            if type_of_period == 'fiscal':
+                return self.collection.find({"$and": [{sort_key: {"$ne": None}},{"Sector": sector}, {"type_of_period": 'FY'}]}).sort(
+                    [(sort_key, sort)]).skip(start_record).limit(records_by_page)
+            elif type_of_period == 'quarter':
+                return self.collection.find({"$and": [{sort_key: {"$ne": None}}, {
+                    "$or": [{"type_of_period": 'Q1'}, {"type_of_period": 'Q2'}, {"Sector": sector}, {"type_of_period": 'Q3'}]}]}).sort(
+                    [(sort_key, sort)]).skip(start_record).limit(records_by_page)
+            elif type_of_period == 'half':
+                return self.collection.find({"$and": [{sort_key: {"$ne": None}}, {"Sector": sector}, {"type_of_period": 'HY'}]}).sort(
+                    [(sort_key, sort)]).skip(start_record).limit(records_by_page)
+            else:
+                raise NotImplemented
+        else:
+            if type_of_period == 'fiscal':
+                return self.collection.find({"$and":[{sort_key: {"$ne": None}},{"type_of_period":'FY'}]}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
+            elif type_of_period == 'quarter':
+                return self.collection.find({"$and":[{sort_key: {"$ne": None}},{"$or":[{"type_of_period": 'Q1'}, {"type_of_period": 'Q2'},{"type_of_period": 'Q3'}]}]}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
+            elif type_of_period == 'half':
+                return self.collection.find({"$and":[{sort_key: {"$ne": None}},{"type_of_period":'HY'}]}).sort([(sort_key, sort)]).skip(start_record).limit(records_by_page)
+            else:
+                raise NotImplemented
+
+    def count_by_period(self, type_of_period="fiscal", sort_key=None, sector_code=None):
             '''
             :param type_of_period: <str> fiscal, quarter, half
             :param sort_key: <str>
+            :param <str> sector code default balue is None.
             :return: <int> count
             '''
             if type_of_period == 'fiscal':
@@ -182,7 +197,7 @@ class MongoDBControlerCorporation(MongoDBConnector, MongoDBCommonModule):
             else:
                 raise NotImplemented
 
-    def get_ranking_by_sector(self, sector_code=None, sort_key=None, limit_num=10):
+    def get_ranking_by_sector(self, sector_code=None, sort_key=None, limit_num=None):
         '''
         This method gets ranking list.
         :param sector_code: <str> sector code
@@ -190,10 +205,12 @@ class MongoDBControlerCorporation(MongoDBConnector, MongoDBCommonModule):
         :param limit_num: <int> The number of documents to get
         :return: <list> list of dicts of corporations, including company names and figures.
         '''
+        if limit_num is None:
+            limit_num = 999
         sector = common.mapping_sector[sector_code]
-        return self.collection.find({"Sector":sector}).sort([(sort_key, pymongo.DESCENDING)]).limit(limit_num)
+        return self.collection.find({"$and": [{sort_key: {"$ne": None}}, {"Sector": sector}]}).sort([(sort_key, pymongo.DESCENDING)]).limit(limit_num)
 
-    def get_all_rankings(self, sort_key=None):
+    def get_all_rankings(self, sort_key=None, limit_num=10):
         '''
 
         :param sort_key: <str> An element that exists in Corporation collection.
@@ -201,7 +218,7 @@ class MongoDBControlerCorporation(MongoDBConnector, MongoDBCommonModule):
         '''
         return_list = []
         for sector_code, _ in common.mapping_sector.items():
-            return_list.append(self.get_ranking_by_sector(sector_code=sector_code, sort_key=sort_key))
+            return_list.append(self.get_ranking_by_sector(sector_code=sector_code, sort_key=sort_key, limit_num=10))
         return return_list
 
 

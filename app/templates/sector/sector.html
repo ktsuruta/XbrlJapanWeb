@@ -2,25 +2,27 @@
 {% import "_macros.html" as macros %}
 
 {% block page_content %}
+
 <h2>{{ sectorname }} ({{ count_annual }})</h2>
+{{ macros.select_kpi_sector("/sector", period, sectorcode) }}
     <table class="table table-striped">
         <thead>
             <tr>
                 <th></th>
-                <th></th>
-                <th></th>
-                <th><a href="/sector/{{ sectorcode }}?sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration" >Net Sales</a></th>
-                <th><a href="/sector/{{ sectorcode }}?sort_key=jpcrp_cor:NetSalesSummaryOfBusinessResults.CurrentYearDuration_NonConsolidatedMember" >Net Sales <br> NonConsolidatedMember</a></th>
+                <th>Name</th>
+                <th>Report Date</th>
+                <th>Report Type(Fiscal</th>
+                <th>{{sort_key}}</th>
             </tr>
         </thead>
         <tbody>
-            {% for document in result_annual %}
+            {% for document in result %}
             <tr>
                 <td>{{ counter.increment() }}</td>
-                <td><a href="/corporation/{{ document['code'] }}">{{get_element(document,"jpcrp_cor:CompanyNameInEnglishCoverPage","FilingDateInstant")}}</a></td>
+                <td><a href="/corporation/{{ document['code'] }}">{{document["name"]}}</a></td>
                 <td>{{ document['report_date'] }}</td>
-                <td>{{get_element(document,"jpcrp_cor:NetSalesSummaryOfBusinessResults","CurrentYearDuration")}}</td>
-                <td>{{get_element(document,"jpcrp_cor:NetSalesSummaryOfBusinessResults","CurrentYearDuration_NonConsolidatedMember")}}</td>
+                <td>{{ document['type_of_period'] }}</td>
+                <td>{{document[sort_key]}}</td>
             </tr>
             {% endfor %}
         </tbody>

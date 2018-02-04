@@ -6,13 +6,19 @@ from .. import models
 from .. import module
 from .. import common
 
+
+
+@sector.route('/', methods=['GET'])
+def index():
+    return render_template('/sector/index.html')
+
 @sector.route('/<sectorcode>', methods=['GET'])
 def sector(sectorcode):
     counter = module.counter(0)
     if request.args.get('sort_key') is not None:
             sort_key = request.args.get('sort_key')
     else:
-            sort_key = None
+            sort_key = 'net_sales_or_revenue'
 
     db_annual = models.MongoDBControllerJpcrp030000()
     db_sector = models.MongoDBControlerSector()
@@ -21,5 +27,11 @@ def sector(sectorcode):
     count_annual = len(list_SecurityCodeDEI)
     result_annual = db_annual.get_coporations_by_SecurityCodeDEI(SecurityCodeDEI=list_SecurityCodeDEI,sort_key=sort_key)
 
-    return render_template('/sector/sector.html', sectorcode=sectorcode, sectorname=sectorname, result_annual=result_annual, \
-                           counter=counter, count_annual=count_annual, get_element=module.get_element, )
+    sort_key=sort_key
+    db_corporation = models.MongoDBControlerCorporation()
+    result = db_corporation.get_ranking_by_sector(sector_code=sectorcode, sort_key=sort_key, limit_num=None)
+
+
+    return render_template('/sector/sector.html', sectorcode=sectorcode, sectorname=sectorname, result_annual=result_annual,\
+                            result=result, sort_key=sort_key, \
+                           counter=counter, count_annual=count_annual, get_element=module.get_element)

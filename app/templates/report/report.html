@@ -5,15 +5,11 @@
 
       <div class="table-responsive">
         <h2>{{period}} {{sort_key}} ({{result_count}})</h2>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/report?sort_key={{sort_key}}&period=fiscal">Fiscal Year</a></li>
-            <li class="breadcrumb-item"><a href="/report?sort_key={{sort_key}}&period=quarter">Quarter</a></li>
-            <li class="breadcrumb-item"><a href="/report?sort_key={{sort_key}}&period=half">Half</a></li>
-          </ol>
-        </nav>
-
-        {{ macros.paging("/report", page, total_page, sort_key, year, period) }}
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link" href="/report?sort_key={{sort_key}}&period=fiscal">Fiscal Year</a></li>
+            <li class="nav-item"><a class="nav-link" href="/report?sort_key={{sort_key}}&period=quarter">Quarter</a></li>
+            <li class="nav-item"><a class="nav-link" href="/report?sort_key={{sort_key}}&period=half">Half</a></li>
+        </ul>
         {{ macros.select_kpi("/report", period) }}
 
         <table class="table table-striped">
@@ -48,5 +44,7 @@
             {% endfor %}
           </tbody>
         </table>
+        {{ macros.paging("/report", page, total_page, sort_key, year, period) }}
+
       </div>
 {% endblock %}

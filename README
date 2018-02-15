@@ -1,0 +1,49 @@
+------------------------------------
+/app/uwsgi.ini
+------------------------------------
+[uwsgi]
+socket = /tmp/uwsgi.sock
+chmod-socket = 666
+chdir = %d
+module = hello:app
+master = 1
+processes = 4
+
+------------------------------------
+/etc/systemd/system/uwsgi.service
+------------------------------------
+[Unit]
+Description = uwsgi
+
+[Service]
+Restart = always
+ExecStart = /usr/local/bin/uwsgi --ini=/home/ubuntu/app/uwsgi.ini
+ExecReload = /bin/kill -s HUP ${MAINPID}
+KillSignal = QUIT
+
+[Install]
+WantedBy = multi-user.target
+
+
+
+------------------------------------
+ /etc/nginx/conf.d/hello.conf
+ rm /etx/nginx/sites-enabled/default
+------------------------------------
+server {
+  listen 80 default_server;
+  server_name _;
+
+  location / {
+    include uwsgi_params;
+    uwsgi_pass unix:///tmp/uwsgi.sock;
+  }
+}
+
+
+
+
+------------------------------------
+Nginx の自動起動設定をしておく。
+# systemctl enable nginx
+------------------------------------

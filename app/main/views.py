@@ -13,31 +13,14 @@ def index():
     result_annual = db_annual.get_all_documents('report_date', 'Descending', 10)
     count_annual = db_annual.count_corporations()
 
-    db_annual_2 = models.MongoDBControllerJpcrp030200()
-    result_annual_2 = db_annual_2.get_all_documents('report_date', 'Descending', 10)
-    count_annual_2 = db_annual_2.count_corporations()
 
-    db_quarter = models.MongoDBControllerJpcrp040000()
-    result_quarter = db_quarter.get_all_documents('report_date', 'Descending', 10)
-    count_quarter = db_quarter.count_corporations()
 
     db_quarter_2 = models.MongoDBControllerJpcrp040300()
     result_quarter_2 = db_quarter_2.get_all_documents('report_date', 'Descending', 10)
     count_quarter_2 = db_quarter_2.count_corporations()
 
-    db_half_year = models.MongoDBControllerJpcrp050000()
-    result_half_year = db_half_year.get_all_documents('report_date', 'Descending', 10)
-    count_half_year = db_half_year.count_corporations()
-
-    db_half_year_2 = models.MongoDBControllerJpcrp050200()
-    result_half_year_2 = db_half_year_2.get_all_documents('report_date', 'Descending', 10)
-    count_half_year_2 = db_half_year_2.count_corporations()
 
     return render_template('index.html', db_annual=db_annual, db_sector=db_sector, get_element=module.get_element, result_annual=result_annual, count_annual=count_annual, \
-                           result_annual_2=result_annual_2, count_annual_2=count_annual_2, \
-                           result_half_year=result_half_year, count_half_year=count_half_year,\
-                           result_half_year_2=result_half_year_2,count_half_year_2=count_half_year_2, \
-                           result_quarter=result_quarter, count_quarter=count_quarter, \
                            result_quarter_2=result_quarter_2, count_quarter_2=count_quarter_2)
 
 

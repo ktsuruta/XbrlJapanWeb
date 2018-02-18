@@ -7,6 +7,8 @@ from .. import module
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
+
+    db_sector = models.MongoDBControlerSector()
     db_annual = models.MongoDBControllerJpcrp030000()
     result_annual = db_annual.get_all_documents('report_date', 'Descending', 10)
     count_annual = db_annual.count_corporations()
@@ -31,10 +33,19 @@ def index():
     result_half_year_2 = db_half_year_2.get_all_documents('report_date', 'Descending', 10)
     count_half_year_2 = db_half_year_2.count_corporations()
 
+    return render_template('index.html', db_annual=db_annual, db_sector=db_sector, get_element=module.get_element, result_annual=result_annual, count_annual=count_annual, \
+                           result_annual_2=result_annual_2, count_annual_2=count_annual_2, \
+                           result_half_year=result_half_year, count_half_year=count_half_year,\
+                           result_half_year_2=result_half_year_2,count_half_year_2=count_half_year_2, \
+                           result_quarter=result_quarter, count_quarter=count_quarter, \
+                           result_quarter_2=result_quarter_2, count_quarter_2=count_quarter_2)
+
+
+@main.route('/overview', methods=['GET', 'POST'])
+def overview():
+
     db_sector = models.MongoDBControlerSector()
-
     count_by_group = db_sector.count_by_group()
-
 
     if request.args.get('sort_key') is not None:
             sort_key = request.args.get('sort_key')
@@ -48,13 +59,8 @@ def index():
 
     get_sector_name = module.get_sector_name
 
-    return render_template('index.html', result_annual=result_annual, count_annual=count_annual, \
-                           result_annual_2=result_annual_2, count_annual_2=count_annual_2, \
-                           result_half_year=result_half_year, count_half_year=count_half_year,\
-                           result_half_year_2=result_half_year_2,count_half_year_2=count_half_year_2, \
-                           result_quarter=result_quarter, count_quarter=count_quarter, \
-                           result_quarter_2=result_quarter_2, count_quarter_2=count_quarter_2,\
-                           get_element=module.get_element, db_sector=db_sector, db_annual=db_annual, count_by_group=count_by_group, \
+    return render_template('overview.html',
+                           get_element=module.get_element, db_sector=db_sector, count_by_group=count_by_group, \
                            rankings_by_rate_of_return_on_equity=rankings_by_rate_of_return_on_equity, counter=counter, counter_ranking_class=counter_ranking_class, \
                            get_sector_name=get_sector_name, sort_key=sort_key)
 

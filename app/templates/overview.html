@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+    <div class="table-responsive">
+        {% for ranking_by_sector in rankings_by_rate_of_return_on_equity %}
+            {% if counter.count % 3 == 1 %}
+                <div class="row">
+            {% endif %}
+                    <div class="col">
+                        <h4>{{ ranking_by_sector[0]['Sector'] }}</h4>
+                        <table class="table  table-sm">
+                            <thead>
+                                <td>Name</td>
+                                <td>Report Date</td>
+                                <td>{{sort_key}}</td>
+                            </thead>
+                            <tbody>
+                        {% for ranking in ranking_by_sector %}
+                            <tr>
+                                <th><a href="/corporation/{{ranking['code']}}">{{ranking['name']}}</a></th><td>{{ranking['report_date']}}</td><td>{{ ranking[sort_key] }}</td>
+                            </tr>
+                        {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+            {% if counter.count % 3 == 0 %}
+                </div>
+            {% endif %}
+            <!-- {{counter.increment()}} -->
+        {% endfor %}
+    </div>
+{% endblock %}

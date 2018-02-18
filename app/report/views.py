@@ -27,8 +27,8 @@ def report_by_type():
     records_per_page = 50
     result_count = db_corporation.count_by_period(period, sort_key)
     total_page = int(result_count / records_per_page)
-    result = db_corporation.get_ranking_by_period(period, sort_key,'Descending',page,records_per_page)
+    result = db_corporation.get_ranking_by_period(type_of_period=period, sort_key=sort_key,order='Descending',page=page,records_by_page=records_per_page)
 
 
-    return render_template('/report/report.html', result=result,  period=period, sort_key=sort_key, page=page, \
+    return render_template('/report/report.html', result=result,  period=period, sort_key=sort_key,page=page, \
                            result_count=result_count,total_page=total_page, get_element=module.get_element)

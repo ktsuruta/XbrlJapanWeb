@@ -5,26 +5,23 @@ from . import main
 from .. import models
 from .. import module
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/new', methods=['GET', 'POST'])
 def index():
 
     db_sector = models.MongoDBControlerSector()
     db_annual = models.MongoDBControllerJpcrp030000()
-    result_annual = db_annual.get_all_documents('report_date', 'Descending', 10)
+    result_annual = db_annual.get_all_documents('report_date', 'Descending', 20)
     count_annual = db_annual.count_corporations()
 
-
-
     db_quarter_2 = models.MongoDBControllerJpcrp040300()
-    result_quarter_2 = db_quarter_2.get_all_documents('report_date', 'Descending', 10)
+    result_quarter_2 = db_quarter_2.get_all_documents('report_date', 'Descending', 20)
     count_quarter_2 = db_quarter_2.count_corporations()
 
-
-    return render_template('index.html', db_annual=db_annual, db_sector=db_sector, get_element=module.get_element, result_annual=result_annual, count_annual=count_annual, \
+    return render_template('new.html', db_annual=db_annual, db_sector=db_sector, get_element=module.get_element, \
+                           result_annual=result_annual, count_annual=count_annual, \
                            result_quarter_2=result_quarter_2, count_quarter_2=count_quarter_2)
 
-
-@main.route('/overview', methods=['GET', 'POST'])
+@main.route('/', methods=['GET', 'POST'])
 def overview():
 
     db_sector = models.MongoDBControlerSector()
@@ -44,7 +41,8 @@ def overview():
 
     return render_template('overview.html',
                            get_element=module.get_element, db_sector=db_sector, count_by_group=count_by_group, \
-                           rankings_by_rate_of_return_on_equity=rankings_by_rate_of_return_on_equity, counter=counter, counter_ranking_class=counter_ranking_class, \
+                           rankings_by_rate_of_return_on_equity=rankings_by_rate_of_return_on_equity, counter=counter, \
+                           counter_ranking_class=counter_ranking_class, \
                            get_sector_name=get_sector_name, sort_key=sort_key)
 
 @main.route('/about')

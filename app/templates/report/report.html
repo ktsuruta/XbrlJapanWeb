@@ -6,11 +6,11 @@
       <div class="table-responsive">
         <h2>{{period}} {{sort_key}} ({{result_count}})</h2>
         <ul class="nav nav-tabs">
-            <li class="nav-item"><a class="nav-link" href="/report?sort_key={{sort_key}}&period=fiscal">Fiscal Year</a></li>
-            <li class="nav-item"><a class="nav-link" href="/report?sort_key={{sort_key}}&period=quarter">Quarter</a></li>
-            <li class="nav-item"><a class="nav-link" href="/report?sort_key={{sort_key}}&period=half">Half</a></li>
+            <li class="nav-item"><a class="nav-link {{ macros.is_active('fiscal', period) }}" href="/report?sort_key={{sort_key}}&period=fiscal">Fiscal Year</a></li>
+            <li class="nav-item"><a class="nav-link {{ macros.is_active('quarter', period) }}" href="/report?sort_key={{sort_key}}&period=quarter">Quarter</a></li>
+            <li class="nav-item"><a class="nav-link {{ macros.is_active('half', period) }}" href="/report?sort_key={{sort_key}}&period=half">Half</a></li>
         </ul>
-        {{ macros.select_kpi("/report", period) }}
+        {{ macros.select_kpi("/report", period, sort_key) }}
 
         <table class="table table-striped">
           <thead>

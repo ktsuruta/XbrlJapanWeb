@@ -106,14 +106,21 @@
     </div>
 {% endmacro %}
 
-{% macro select_kpi(url, period=None) %}
-<ul class="nav">
-    <li class="nav-item"><a class="nav-link" href="{{url}}?sort_key=rate_of_return_on_equity&period={{period}}">rate_of_return_on_equity</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{url}}?sort_key=net_sales_or_revenue&period={{period}}">net_sales_or_revenue</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{url}}?sort_key=cash_flow_by_operating_activities&period={{period}}">cash_flow_by_operating_activities</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{url}}?sort_key=price_earnings_ratio&period={{period}}">Price_earnings_ratio</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{url}}?sort_key=basic_earnings_(loss)_per_share&period={{period}}">Basic_earnings_(loss)_per_share</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{url}}?sort_key=equity_to_asset_ratio&period={{period}}">Equity_To_AssetRatio</a></li>
+
+{% macro is_active(class, selected) %}
+    {% if class == selected %}
+        active
+    {% endif %}
+{% endmacro %}
+
+{% macro select_kpi(url, period=None, sort_key=None) %}
+<ul class="nav nav-pills">
+    <li class="nav-item"><a class="nav-link {{ is_active(sort_key, 'rate_of_return_on_equity') }}" href="{{url}}?sort_key=rate_of_return_on_equity&period={{period}}">rate_of_return_on_equity</a></li>
+    <li class="nav-item"><a class="nav-link {{ is_active(sort_key, 'net_sales_or_revenue') }}" href="{{url}}?sort_key=net_sales_or_revenue&period={{period}}">net_sales_or_revenue</a></li>
+    <li class="nav-item"><a class="nav-link {{ is_active(sort_key, 'cash_flow_by_operating_activities') }}" href="{{url}}?sort_key=cash_flow_by_operating_activities&period={{period}}">cash_flow_by_operating_activities</a></li>
+    <li class="nav-item"><a class="nav-link {{ is_active(sort_key, 'price_earnings_ratio') }}" href="{{url}}?sort_key=price_earnings_ratio&period={{period}}">Price_earnings_ratio</a></li>
+    <li class="nav-item"><a class="nav-link {{ is_active(sort_key, 'basic_earnings_(loss)_per_share') }}" href="{{url}}?sort_key=basic_earnings_(loss)_per_share&period={{period}}">Basic_earnings_(loss)_per_share</a></li>
+    <li class="nav-item"><a class="nav-link {{ is_active(sort_key, 'equity_to_asset_ratio') }}" href="{{url}}?sort_key=equity_to_asset_ratio&period={{period}}">Equity_To_AssetRatio</a></li>
 </ul>
 {% endmacro %}
 
@@ -126,4 +133,10 @@
       <li class="nav-item"><a class="nav-link" href="{{url}}/{{sector}}?sort_key=basic_earnings_(loss)_per_share&period={{period}}">Basic earnings (loss) pershare</a></li>
       <li class="nav-item"><a class="nav-link" href="{{url}}/{{sector}}?sort_key=equity_to_asset_ratio&period={{period}}">Equity To AssetRatio</a></li>
 </ul>
+{% endmacro %}
+
+{% macro is_active(class, selected) %}
+    {% if class == selected %}
+        active
+    {% endif %}
 {% endmacro %}

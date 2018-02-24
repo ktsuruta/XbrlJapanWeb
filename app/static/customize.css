@@ -6,3 +6,12 @@
     font-size: small;
     width: 200px;
 }
+.navbar-brand {
+    padding-top: 0;
+}
+.navbar-brand-logo {
+    width: 105px;
+}
+.bg-dark {
+    background-color: #b4b4b4 !important;
+}

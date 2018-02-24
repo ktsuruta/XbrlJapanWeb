@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
+{% block head %}
+<title>About - Kaisha.X</title>
+<meta content="About - Kaisha.X" name="title">
+<meta content="" name="description">
+
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="ogpのタイトル. <title>と文章も文字数も同じにする。"/>
+<meta property="og:description" content="ogpの本文。<meta name='description'>と同じにする。" />
+<meta property="og:image" content="" />
+<meta property="og:url" content="/about" />
+<meta property="og:site_name" content="KaishX"/>
+{% endblock %}
 
 {% block page_content %}
     <div class="table-responsive">

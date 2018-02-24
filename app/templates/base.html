@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
-    {% block head %}
     <meta charset="utf-8">
+    {% block head %}
+    {% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
     <title>Dashboard Template for Bootstrap</title>
@@ -15,13 +14,12 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dashboard.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='customize.css') }}">
-    {% endblock %}
   </head>
 
   <body>
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Kaisha</a>
+        <a class="navbar-brand" href="#"><img class="navbar-brand-logo" src="{{ url_for('static', filename='img/logo.png') }}"></a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,10 +35,10 @@
             <li class="nav-item active">
               <a class="nav-link" href="/report">Report<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="/sector">Sector</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="/about">About</a>
             </li>
           </ul>

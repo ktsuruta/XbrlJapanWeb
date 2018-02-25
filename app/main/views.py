@@ -45,9 +45,9 @@ def overview():
                            counter_ranking_class=counter_ranking_class, \
                            get_sector_name=get_sector_name, sort_key=sort_key)
 
-@main.route('/about')
+@main.route('/readme')
 def about():
-    return render_template('about.html')
+    return render_template('readme.html')
 
 @main.route('/search', methods=['GET'])
 def search_reports():

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+{% block head %}
+<title>About - Kaisha.X</title>
+<meta content="About - Kaisha.X" name="title">
+<meta content="" name="description">
+
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="ogpのタイトル. <title>と文章も文字数も同じにする。"/>
+<meta property="og:description" content="ogpの本文。<meta name='description'>と同じにする。" />
+<meta property="og:image" content="" />
+<meta property="og:url" content="/about" />
+<meta property="og:site_name" content="KaishX"/>
+{% endblock %}
+
+{% block page_content %}
+    <div class="table-responsive">
+        <h1>
+           Read me before using this website.
+        </h1>
+        <p>
+            This website shows Japanese corporation data based on XBRL files provided by <a href="http://disclosure.edinet-fsa.go.jp/EKW0EZ1001.html?lgKbn=1&dflg=0&iflg=0" target="_blank">EDINET</a>.<br>
+            I develop and maintain this website for my own use.<br>
+            If you have any question, please contant me.<br><br>
+            Please read below carefully before going ahead. When you do not agree with below, please refrain from using this website.<br><br>
+
+            I can not guarantee the quality of service in terms of compliance, integrity, accuracy, security, legality, recency and any other aspect of information, though I take the greatest care of the accuracy.<br>
+            I reserve the right to modify or delete the contents.<br>
+            This website is subject to stop serving without notice.<br>
+            I do not take any responsibility for anything related to the use of this website<br>
+            When you use this website, I assume that you use this website at your own responsibility and you agree to the content of this page.
+        </p>
+    </div>
+{% endblock %}

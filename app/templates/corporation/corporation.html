@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
+{% block head %}
+<title>{{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }} - Corporation - Kaisha.X</title>
+<meta content="{{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }} - Coporation - Kaisha.X" name="title">
+<meta content="This provides corporation information of {{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }}" name="description">
+
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="ogpのタイトル. <title>と文章も文字数も同じにする。"/>
+<meta property="og:description" content="ogpの本文。<meta name='description'>と同じにする。" />
+<meta property="og:image" content="" />
+<meta property="og:url" content="/about" />
+<meta property="og:site_name" content="KaishX"/>
+{% endblock %}
+
 {% block page_content %}
     <h1>
         {{ result['jpcrp_cor:CompanyNameInEnglishCoverPage']['FilingDateInstant'] }}

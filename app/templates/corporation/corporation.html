@@ -182,6 +182,10 @@
         </tbody>
     </table>
 
+    <div class="alert alert-info" role="alert">
+        Data below is based on {{ result['file_name'] }}
+    </div>
+
     {% for list in common.annual_report_list %}
     <h3>{{ list[0] }}</h3>
         {% for el, el_name in list[1].items() %}
